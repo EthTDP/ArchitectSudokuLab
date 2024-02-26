@@ -26,8 +26,21 @@ public class SudokuServer extends Application {
         BorderPane pane = new BorderPane();
         pane.setCenter(new Text("SERVER!"));
 
-        Scene scene = new Scene(pane);
+        Scene scene = new Scene(pane, 400, 400);
         stage.setScene(scene);
+        stage.show();
+    }
+
+    public void start(int port) throws Exception {
+        serverSocket = new ServerSocket(port);
+        clientSocket = serverSocket.accept();
+        out = new PrintWriter(clientSocket.getOutputStream(), true);
+        in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+
+        String inputLine;
+        while ((inputLine = in.readLine()) != null) {
+            out.println("Hello Client!");
+        }
     }
 
     public void stop() throws IOException {
@@ -45,18 +58,6 @@ public class SudokuServer extends Application {
             server.stop();
         } catch(Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    public void start(int port) throws Exception {
-        serverSocket = new ServerSocket(port);
-        clientSocket = serverSocket.accept();
-        out = new PrintWriter(clientSocket.getOutputStream(), true);
-        in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-
-        String inputLine;
-        while ((inputLine = in.readLine()) != null) {
-
         }
     }
 }

@@ -6,4 +6,6 @@ module edu.sdccd.cisc191.sudoku {
 
     opens edu.sdccd.cisc191.sudoku.client to javafx.fxml;
     exports edu.sdccd.cisc191.sudoku.client;
+    exports edu.sdccd.cisc191.sudoku.client.screen.start;
+    opens edu.sdccd.cisc191.sudoku.client.screen.start to javafx.fxml;
 }

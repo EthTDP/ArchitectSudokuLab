@@ -1,7 +1,5 @@
 package edu.sdccd.cisc191.sudoku.client.board;
 
-import edu.sdccd.cisc191.sudoku.client.board.ValidMoves;
-
 import java.util.*;
 
 public class SudokuBoard {
@@ -15,7 +13,7 @@ public class SudokuBoard {
         //Initialize class variables
         board = new int[SIZE][SIZE];
         unsolvedBoard = new int[SIZE][SIZE];
-        moves = new edu.sdccd.cisc191.sudoku.client.board.ValidMoves(board, SIZE, EMPTY_CELL, unsolvedBoard);
+        moves = new ValidMoves(board, SIZE, unsolvedBoard);
     }
 
     public void generateBoard() {
@@ -32,15 +30,16 @@ public class SudokuBoard {
 
         //Prints the correct board
         System.out.print("Correct Board: \n");
-        for(int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
-                System.out.print(board[i][j]);
+        for (int[] ints : board) {
+            for (int j = 0; j < ints.length; j++) {
+                System.out.print(ints[j]);
                 System.out.print(" ");
             }
 
             System.out.print("\n");
         }
     }
+
 
     private boolean createBoard() {
         ArrayList<Integer> firstRowNumbers = new ArrayList<>();
@@ -71,6 +70,7 @@ public class SudokuBoard {
         return true;
     }
 
+
     private void removeCells() {
         Random random = new Random();
         int cellsToRemove = SIZE * SIZE / 2;
@@ -84,21 +84,24 @@ public class SudokuBoard {
         }
     }
 
+
     public int getCellValue(int row, int col) {
         return unsolvedBoard[row][col];
     }
+
 
     public void setCellValue(int row, int col, int value) {
         unsolvedBoard[row][col] = value;
     }
 
+
     public boolean isEditableCell(int row, int col) {
         return unsolvedBoard[row][col] != board[row][col];
     }
 
+
     public boolean isSolved() {
         // Check if the board is completely filled
-
         for(int i = 0; i < SIZE; i++)
         {
             for(int j = 0; j < SIZE; j++)
@@ -109,7 +112,6 @@ public class SudokuBoard {
                 }
             }
         }
-
         return true;
     }
 
