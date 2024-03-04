@@ -54,7 +54,6 @@ public class ValidMoves {
                 }
             }
         }
-
         return false;
     }
 }

@@ -1,22 +1,24 @@
 package edu.sdccd.cisc191.sudoku.client;
 
+import edu.sdccd.cisc191.sudoku.client.files.BoardtoFile;
+import edu.sdccd.cisc191.sudoku.client.networking.ClientSender;
+import edu.sdccd.cisc191.sudoku.client.networking.ServerConnection;
 import edu.sdccd.cisc191.sudoku.client.screen.start.Start;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
+
+import static edu.sdccd.cisc191.sudoku.client.files.BoardtoFile.closeInputStream;
+import static edu.sdccd.cisc191.sudoku.client.files.BoardtoFile.closeWriter;
 
 public class SudokuApp extends Application {
 
+    private static final String ROOT_DIRECTORY = "D:\\CISC191\\Labs\\ArchitectSudokuLab\\Client\\src\\main\\java\\resources";
     //Networking Variables
-    private Socket clientSocket;
-    private PrintWriter out;
-    private BufferedReader in;
 
     @Override
     public void start(Stage primaryStage) {
@@ -24,22 +26,6 @@ public class SudokuApp extends Application {
 
         Start borderPane = new Start(primaryStage);
         borderPane.startScreen();
-        //        Text text = new Text("  S\tU\tD\tO\tK\tU");
-//        text.setTabSize(15);
-//        text.setFont(Font.font(55));
-
-//        Text information = new Text();
-
-//        information.setTextAlignment(TextAlignment.CENTER);
-//        information.setText("""
-//                In order to play Sudoku, you must:
-//                    Type in a number or click the side button with the number you would like to place down.
-//                    Then you click the square you would like to place the number down on!
-//                    that's it.
-//                """);
-//
-//        information.setFont(new Font(30));
-//        borderPane.setBottom(information);
 
         Scene startScene = new Scene(borderPane, 1250, 575);
 
@@ -48,37 +34,26 @@ public class SudokuApp extends Application {
         primaryStage.show();
     }
 
-
-    public void startConnection(String ip, int port) throws IOException {
-        clientSocket = new Socket(ip, port);
-        out = new PrintWriter(clientSocket.getOutputStream(), true);
-        in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-    }
-
-    public void sendRequest() throws Exception{
-        out.println("What's up server!");
-    }
-
-    public void stopConnection() throws IOException {
-        in.close();
-        out.close();
-        clientSocket.close();
-    }
-
-
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         System.out.println("Starting Sudoku!");
 
-        SudokuApp client = new SudokuApp();
-        try {
-            client.startConnection("127.0.0.1", 4444);
-            System.out.println("Starting Server Connection!");
-            client.sendRequest();
-            launch(args);
-            client.stopConnection();
-        } catch (Exception e)
-        {
-            launch(args);
-        }
+        BoardtoFile file = new BoardtoFile(ROOT_DIRECTORY, "save.txt");
+            if(file.delete())
+                System.out.println("Deleted!");
+
+        BoardtoFile readSaveFile = new BoardtoFile(ROOT_DIRECTORY, "readable_save.txt");
+            if(readSaveFile.delete())
+                System.out.println("Deleted!");
+
+        launch(args);
+
+        Platform.runLater(() -> {
+            try {
+                closeInputStream();
+                closeWriter();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 }

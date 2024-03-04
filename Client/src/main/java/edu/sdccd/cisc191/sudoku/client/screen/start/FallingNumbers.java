@@ -1,5 +1,6 @@
 package edu.sdccd.cisc191.sudoku.client.screen.start;
 
+import edu.sdccd.cisc191.sudoku.client.screen.Screen;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.scene.Node;
@@ -22,7 +23,7 @@ public class FallingNumbers implements Screen {
         number = new Random();
         numbers = new ArrayList<>();
 
-        int max = 15;
+        int max = 35;
         for(int i = 0; i < max; i++)
         {
             Node box = createNewNumber(i, max);
@@ -33,7 +34,7 @@ public class FallingNumbers implements Screen {
 
     private void startTransition(Node move) {
         TranslateTransition transition = new TranslateTransition();
-        transition.setToY(623);
+        transition.setToY(550);
         int seconds = number.nextInt(10);
         transition.setDuration(Duration.seconds(seconds + 3));
         transition.setNode(move);
@@ -63,7 +64,7 @@ public class FallingNumbers implements Screen {
         numberText.setFont(Font.font("Impact", 25));
         node.getChildren().addAll(rectangle, numberText);
         node.setTranslateX(randomWidth);
-        int randomStart = number.nextInt(48);
+        int randomStart = number.nextInt(100);
         node.setTranslateY(-randomStart);
 
         return node;
