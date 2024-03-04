@@ -24,26 +24,9 @@ public class SudokuApp extends Application {
 
         Start borderPane = new Start(primaryStage);
         borderPane.startScreen();
-        //        Text text = new Text("  S\tU\tD\tO\tK\tU");
-//        text.setTabSize(15);
-//        text.setFont(Font.font(55));
-
-//        Text information = new Text();
-
-//        information.setTextAlignment(TextAlignment.CENTER);
-//        information.setText("""
-//                In order to play Sudoku, you must:
-//                    Type in a number or click the side button with the number you would like to place down.
-//                    Then you click the square you would like to place the number down on!
-//                    that's it.
-//                """);
-//
-//        information.setFont(new Font(30));
-//        borderPane.setBottom(information);
 
         Scene startScene = new Scene(borderPane, 1250, 575);
 
-        primaryStage.setResizable(false);
         primaryStage.setScene(startScene);
         primaryStage.show();
     }

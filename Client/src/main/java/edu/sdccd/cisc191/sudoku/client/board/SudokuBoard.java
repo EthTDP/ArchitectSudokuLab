@@ -1,5 +1,7 @@
 package edu.sdccd.cisc191.sudoku.client.board;
 
+import edu.sdccd.cisc191.sudoku.client.screen.start.Start;
+
 import java.util.*;
 
 public class SudokuBoard {
@@ -73,7 +75,26 @@ public class SudokuBoard {
 
     private void removeCells() {
         Random random = new Random();
-        int cellsToRemove = SIZE * SIZE / 2;
+        int cellsToRemove;
+        switch (Start.difficulty) {
+            case "easy" : {
+                cellsToRemove = SIZE * SIZE / 3;
+                System.out.println(cellsToRemove);
+                break;
+            }
+
+            case "hard" : {
+                cellsToRemove = (int) (SIZE * SIZE / 1.5);
+                System.out.println(cellsToRemove);
+                break;
+            }
+
+            default: {
+                cellsToRemove = SIZE * SIZE / 2;
+                System.out.println(cellsToRemove);
+            }
+        }
+
         while (cellsToRemove > 0) {
             int row = random.nextInt(SIZE);
             int col = random.nextInt(SIZE);
