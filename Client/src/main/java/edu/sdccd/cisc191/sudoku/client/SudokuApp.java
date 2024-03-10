@@ -29,7 +29,6 @@ public class SudokuApp extends Application {
 
         Scene startScene = new Scene(borderPane, 1250, 575);
 
-        primaryStage.setResizable(false);
         primaryStage.setScene(startScene);
         primaryStage.show();
     }
