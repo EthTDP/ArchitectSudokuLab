@@ -15,10 +15,12 @@ import java.net.Socket;
 import static edu.sdccd.cisc191.sudoku.client.files.BoardtoFile.closeInputStream;
 import static edu.sdccd.cisc191.sudoku.client.files.BoardtoFile.closeWriter;
 
+/**
+ * The Class SudokuApp, the main class that has the JavaFX application.
+ */
 public class SudokuApp extends Application {
 
     private static final String ROOT_DIRECTORY = "D:\\CISC191\\Labs\\ArchitectSudokuLab\\Client\\src\\main\\java\\resources";
-    //Networking Variables
 
     @Override
     public void start(Stage primaryStage) {
@@ -33,6 +35,12 @@ public class SudokuApp extends Application {
         primaryStage.show();
     }
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     * @throws IOException the io exception
+     */
     public static void main(String[] args) throws IOException {
         System.out.println("Starting Sudoku!");
 

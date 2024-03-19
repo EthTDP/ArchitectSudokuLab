@@ -2,14 +2,22 @@ package edu.sdccd.cisc191.sudoku.client.files;
 
 import java.io.*;
 
+/**
+ * Class to send the board to a file.
+ */
 public class BoardtoFile {
     private static java.io.File file;
     String path;
-
     public static DataInputStream inputStream;
-
     static FileWriter writer;
 
+    /**
+     * Create a new BoardtoFile constructor that takes in parameters and throws IOException
+     *
+     * @param path     the path
+     * @param fileName the file name
+     * @throws IOException the io exception
+     */
     public BoardtoFile(String path, String fileName) throws IOException {
         this.path = path;
         file = new java.io.File(path + "\\" + fileName);
@@ -25,14 +33,33 @@ public class BoardtoFile {
         }
     }
 
+    /**
+     * Gets the path.
+     *
+     * @return the path
+     */
     public String getPath() {
         return file.getAbsolutePath();
     }
 
+    /**
+     * Check to see if we have deleted the file.
+     *
+     * @return delete?
+     */
     public boolean delete() {
         return file.delete();
     }
 
+    /**
+     * Write the board to file.
+     *
+     * @param board         the board
+     * @param unsolvedBoard the unsolved board
+     * @param minutes       the minutes
+     * @param seconds       the seconds
+     * @throws IOException the io exception
+     */
     public void writeBoardToFile(int[][] board, int[][] unsolvedBoard, int minutes, int seconds) throws IOException {
         if(file.exists()) {
             if(file.createNewFile())
@@ -66,14 +93,17 @@ public class BoardtoFile {
         System.out.println("Arrays and integers written to file.");
     }
 
+    /**
+     * Read the board from the file
+     *
+     * @throws IOException the io exception
+     */
     public void readBoardFromFile() throws IOException {
         int[][] board = readArray();
         int[][] unsolvedBoard = readArray();
         int minutes = inputStream.readShort();
         int seconds = inputStream.readShort();
 
-        // Do whatever you need to do with the read data
-        // For example, print them
         System.out.println("Unsolved Board:");
         printArray(board);
         System.out.println("Solved Board:");
@@ -81,6 +111,7 @@ public class BoardtoFile {
         System.out.println("Minutes: " + minutes);
         System.out.println("Seconds: " + seconds);
     }
+
 
     private int[][] readArray() throws IOException {
         int[][] array = new int[9][9]; // Assuming size is known
@@ -100,6 +131,7 @@ public class BoardtoFile {
         return array;
     }
 
+
     private void printArray(int[][] array) {
         for (int[] row : array) {
             for (int num : row) {
@@ -109,6 +141,13 @@ public class BoardtoFile {
         }
     }
 
+    /**
+     * Write board to a file that is readable.
+     *
+     * @param path    the path
+     * @param newFile the new file
+     * @throws IOException the io exception
+     */
     public void writeToFile(String path, String newFile) throws IOException {
         File file = new File(path + "\\" + newFile);
         if(file.exists()) {
@@ -136,14 +175,29 @@ public class BoardtoFile {
         writer.flush();
     }
 
+    /**
+     * Close the input stream.
+     *
+     * @throws IOException the io exception
+     */
     public static void closeInputStream() throws IOException {
         inputStream.close();
     }
 
+    /**
+     * Close the writer.
+     *
+     * @throws IOException the io exception
+     */
     public static void closeWriter() throws IOException {
         writer.close();
     }
 
+    /**
+     * Reset input stream.
+     *
+     * @throws FileNotFoundException the file not found exception
+     */
     public static void resetInputStream() throws FileNotFoundException {
         inputStream = new DataInputStream(new FileInputStream(file));
     }

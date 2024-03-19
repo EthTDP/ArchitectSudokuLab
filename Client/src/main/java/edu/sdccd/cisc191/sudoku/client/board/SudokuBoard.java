@@ -4,6 +4,10 @@ import edu.sdccd.cisc191.sudoku.client.screen.start.Start;
 
 import java.util.*;
 
+/**
+ * SudokuBoard class:
+ * Handles all board stuff like generating it or setting a spot, checking the number in the spot, checking for if it is solve or editable
+ */
 public class SudokuBoard {
     private final int[][] board;
     private final int[][] unsolvedBoard;
@@ -11,6 +15,12 @@ public class SudokuBoard {
     private static final int EMPTY_CELL = 0;
     private final ValidMoves moves;
 
+    /**
+     * New no-args constructor for SudokuBoard.
+     * Sets board to a new 2-dimensional array
+     * Sets unsolved board to a new 2-dimensional array
+     * Sets moves to a new ValidMoves object.
+     */
     public SudokuBoard() {
         //Initialize class variables
         board = new int[SIZE][SIZE];
@@ -18,6 +28,9 @@ public class SudokuBoard {
         moves = new ValidMoves(board, SIZE, unsolvedBoard);
     }
 
+    /**
+     * Generate the board
+     */
     public void generateBoard() {
         // Generate a complete Sudoku board
         createBoard();
@@ -42,7 +55,10 @@ public class SudokuBoard {
         }
     }
 
-
+    /**
+     * Create the board
+     * return true or false whether we finished creating the board or not.
+     */
     private boolean createBoard() {
         ArrayList<Integer> firstRowNumbers = new ArrayList<>();
 
@@ -106,26 +122,59 @@ public class SudokuBoard {
     }
 
 
+    /**
+     * Gets cell value.
+     *
+     * @param row the row
+     * @param col the col
+     * @return the cell value
+     */
     public int getCellValue(int row, int col) {
         return unsolvedBoard[row][col];
     }
 
 
+    /**
+     * Sets cell value.
+     *
+     * @param row   the row
+     * @param col   the col
+     * @param value the value
+     */
     public void setCellValue(int row, int col, int value) {
         unsolvedBoard[row][col] = value;
     }
 
+    /**
+     * Sets board value.
+     *
+     * @param row   the row
+     * @param col   the col
+     * @param value the value
+     */
     public void setBoardValue(int row, int col, int value)
     {
         board[row][col] = value;
     }
 
 
+    /**
+     * Is the cell editable?
+     *
+     * @param row the row
+     * @param col the col
+     * @return yes or no
+     */
     public boolean isEditableCell(int row, int col) {
         return unsolvedBoard[row][col] != board[row][col];
     }
 
 
+    /**
+     * Has the player finished solving the board?
+     *
+     * @return yes or no
+     */
     public boolean isSolved() {
         // Check if the board is completely filled
         for(int i = 0; i < SIZE; i++)
@@ -141,16 +190,40 @@ public class SudokuBoard {
         return true;
     }
 
+    /**
+     * Gets this instance of ValidMoves
+     *
+     * @return ValidMoves
+     */
     public ValidMoves getMoves()
     {
         return moves;
     }
 
+    /**
+     * Get the solved board
+     *
+     * @return the solved board
+     */
     public int[][] getBoard() {
         return board;
     }
 
+    /**
+     * Get the unsolved board
+     *
+     * @return the unsolved board
+     */
     public int[][] getUnsolvedBoard() {
         return unsolvedBoard;
+    }
+
+    /**
+     * Get size.
+     *
+     * @return the size
+     */
+    public int getSize() {
+        return SIZE;
     }
 }

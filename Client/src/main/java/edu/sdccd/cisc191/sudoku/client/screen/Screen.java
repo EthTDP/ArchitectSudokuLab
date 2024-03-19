@@ -1,7 +1,11 @@
 package edu.sdccd.cisc191.sudoku.client.screen;
 
-import javafx.scene.layout.Background;
-
+/**
+ * The interface Screen.
+ */
 public interface Screen {
+    /**
+     * Starts the screen.
+     */
     void startScreen();
 }

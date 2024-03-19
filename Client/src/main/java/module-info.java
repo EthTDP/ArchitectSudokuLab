@@ -1,10 +1,10 @@
-module edu.sdccd.cisc191.sudoku {
+module Client {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.desktop;
     requires javafx.graphics;
     requires javafx.media;
-
+    requires Common;
 
     opens edu.sdccd.cisc191.sudoku.client to javafx.fxml;
     exports edu.sdccd.cisc191.sudoku.client;

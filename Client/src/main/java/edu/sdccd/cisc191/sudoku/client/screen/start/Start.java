@@ -1,10 +1,12 @@
 package edu.sdccd.cisc191.sudoku.client.screen.start;
 
+import edu.sdccd.cisc191.sudoku.client.clickhandler.HandleClicks;
 import edu.sdccd.cisc191.sudoku.client.files.BoardtoFile;
 import edu.sdccd.cisc191.sudoku.client.networking.ClientSender;
 import edu.sdccd.cisc191.sudoku.client.screen.Screen;
 import edu.sdccd.cisc191.sudoku.client.screen.game.GameScreen;
 import javafx.animation.ScaleTransition;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
@@ -17,22 +19,29 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.util.Random;
 
+/**
+ * The class Start that shows the start screen and implements screen to get the startScreen method.
+ */
 public class Start extends BorderPane implements Screen {
     FallingNumbers numbers;
     Button startButton;
     GameScreen gameScreen;
-
     static MediaPlayer player;
     static Button originalDifficulty;
     static Button originalGamemode;
     static Stage primaryStage;
-
     public static String difficulty = "medium";
     public static String gamemode = "singleplayer";
+    public static ClientSender client;
 
+    /**
+     * Create a mew Start class with the arg for the primary stage.
+     *
+     * @param primaryStage the primary stage
+     */
     public Start(Stage primaryStage) {
         numbers = new FallingNumbers();
         Start.primaryStage = primaryStage;
@@ -118,6 +127,29 @@ public class Start extends BorderPane implements Screen {
         startButton.setOnMouseClicked(e -> {
             if(e.getButton() == MouseButton.PRIMARY)
             {
+                if(gamemode.equalsIgnoreCase("multiplayer")) {
+                    Random random = new Random();
+                    int playerID = random.nextInt(10);
+
+                    try {
+                        client = new ClientSender("127.0.0.1", 4444, playerID);
+
+                        String inputLine;
+                        inputLine = client.receiveFromServer();
+
+                        if(inputLine.trim().equalsIgnoreCase("SERVER_NOT_FULL")) {
+                            System.out.println("Starting Server Connection!");
+                        } else if (inputLine.trim().equalsIgnoreCase("SERVER_FULL")) {
+                            System.out.println("Server is full. Unable to join.");
+                            HandleClicks.showAlert("Sorry, server is full. Please try again later!", Alert.AlertType.INFORMATION);
+                            client.closeConnection();
+                            return;
+                        }
+                    } catch (IOException ex) {
+                        System.out.println("Error connecting to server!");
+                    }
+                }
+
                 try {
                     gameScreen = new GameScreen(primaryStage);
                 } catch (IOException ex) {
@@ -125,15 +157,6 @@ public class Start extends BorderPane implements Screen {
                 }
                 player.stop();
                 gameScreen.startScreen();
-
-                if(gamemode.equalsIgnoreCase("multiplayer")) {
-                    try {
-                        ClientSender client = new ClientSender("127.0.0.1", 4444);
-                        System.out.println("Starting Server Connection!");
-                    } catch (IOException ex) {
-                        System.out.println("Error connecting to server!");
-                    }
-                }
             }
         });
 

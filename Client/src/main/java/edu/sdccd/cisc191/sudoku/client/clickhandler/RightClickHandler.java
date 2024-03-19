@@ -1,4 +1,4 @@
-package edu.sdccd.cisc191.sudoku.client.button;
+package edu.sdccd.cisc191.sudoku.client.clickhandler;
 
 import edu.sdccd.cisc191.sudoku.client.board.SudokuBoard;
 import javafx.scene.Scene;
@@ -11,8 +11,16 @@ import javafx.stage.Stage;
 
 import java.awt.*;
 
+/**
+ * The RightClickHandler to handle the right clicks.
+ */
 public class RightClickHandler extends HandleClicks {
 
+    /**
+     * Creates a new RightClickHandler taking in a SudokuBoard object and then supering it to the HandleClicks class.
+     *
+     * @param board the board
+     */
     public RightClickHandler(SudokuBoard board) {
         super(board);
     }

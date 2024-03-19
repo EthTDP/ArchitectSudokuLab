@@ -1,7 +1,6 @@
-package edu.sdccd.cisc191.sudoku.client.button;
+package edu.sdccd.cisc191.sudoku.client.clickhandler;
 
 import edu.sdccd.cisc191.sudoku.client.board.SudokuBoard;
-import edu.sdccd.cisc191.sudoku.client.screen.Screen;
 import javafx.animation.Animation;
 import javafx.animation.RotateTransition;
 import javafx.animation.ScaleTransition;
@@ -11,32 +10,44 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.awt.*;
-
+/**
+ * Handler for clicks:
+ * Has methods that can be overriden for handling clicks
+ */
 public class HandleClicks {
     SudokuBoard sudokuBoard;
     public static boolean cont;
-
     public static Scene congratsScene;
     public static boolean finished;
 
     public static Button clickedButton;
-
     public static Background original;
     public static boolean pressed = false;
 
+    /**
+     * Create a new constructor that takes a SudokuBoard class and sets it
+     *
+     * @param board the board
+     */
     public HandleClicks(SudokuBoard board) {
         sudokuBoard = board;
     }
 
+    /**
+     * Handle click.
+     *
+     * @param cellValue the cell value
+     * @param stage     the stage
+     * @param button    the button
+     * @param row       the row
+     * @param col       the col
+     */
     void handleClick(int cellValue, Stage stage, Button button, int row, int col) {
 
         if (!sudokuBoard.isEditableCell(row, col)) {
@@ -64,6 +75,14 @@ public class HandleClicks {
         cont = true;
     }
 
+    /**
+     * Sets value.
+     *
+     * @param button the button
+     * @param row    the row
+     * @param col    the col
+     * @param value  the value
+     */
     void setValue(Button button, int row, int col, int value) {
         if (value >= 0 && value < 10) {
             ScaleTransition pop = new ScaleTransition();
@@ -91,6 +110,13 @@ public class HandleClicks {
         }
     }
 
+    /**
+     * Check button boolean. Checks for whether we can continue or not
+     *
+     * @param cellValue the cell value
+     * @param button    the button
+     * @return can we continue?
+     */
     boolean checkButton(int cellValue, Button button) {
         if(!cont)
         {
@@ -122,7 +148,13 @@ public class HandleClicks {
     }
 
 
-    public void showAlert(String message, Alert.AlertType type) {
+    /**
+     * Show alert.
+     *
+     * @param message the message
+     * @param type    the type of alert
+     */
+    public static void showAlert(String message, Alert.AlertType type) {
         Alert alert = new Alert(type);
         alert.setTitle("Sudoku");
         alert.setHeaderText(null);

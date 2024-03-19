@@ -14,6 +14,10 @@ import javafx.util.Duration;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * The class FallingNumbers:
+ * Just used to display falling numbers at the start.
+ */
 public class FallingNumbers implements Screen {
     ArrayList<Node> numbers;
     Random number;
@@ -70,6 +74,11 @@ public class FallingNumbers implements Screen {
         return node;
     }
 
+    /**
+     * Gets the numbers.
+     *
+     * @return the numbers
+     */
     public ArrayList<Node> getNumbers() {
         return numbers;
     }
