@@ -37,7 +37,7 @@ public class GameScreen implements Screen {
     static LeftClickHandler leftClickHandler;
     static RightClickHandler rightClickHandler;
     static Start startScreen;
-    static Stage primaryStage;
+    public static Stage primaryStage;
     public static SudokuBoard sudokuBoard;
     BoardtoFile file;
 
@@ -134,7 +134,7 @@ public class GameScreen implements Screen {
         inputStream.readByte();
 
         return array;
-    }
+    }    
 
     private void start() throws IOException {
         int minutes;
@@ -415,5 +415,13 @@ public class GameScreen implements Screen {
         {
             button.setTranslateX(6);
         }
+    }
+
+    public static int getHeight() {
+        return height;
+    }
+
+    public static int getWidth() {
+        return width;
     }
 }

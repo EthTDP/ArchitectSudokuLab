@@ -30,6 +30,12 @@
             <artifactId>Common</artifactId>
             <version>1.0</version>
         </dependency>
+        <dependency>
+            <groupId>edu.sdccd.cisc191.sudoku</groupId>
+            <artifactId>Client</artifactId>
+            <version>1.0</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>

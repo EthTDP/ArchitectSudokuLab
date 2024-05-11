@@ -39,6 +39,10 @@ public class LeftClickHandler extends HandleClicks {
         conflictingCells = new ArrayList<>();
     }
 
+    public LeftClickHandler() {
+        super(new SudokuBoard());
+    }
+
     @Override
     public void handleClick(int cellValue, Stage stage, Button button, int row, int col) {
         super.handleClick(cellValue, stage, button, row, col);

@@ -5,11 +5,4 @@ module Client {
     requires javafx.graphics;
     requires javafx.media;
     requires Common;
-
-    opens edu.sdccd.cisc191.sudoku.client to javafx.fxml;
-    exports edu.sdccd.cisc191.sudoku.client;
-    exports edu.sdccd.cisc191.sudoku.client.screen.start;
-    opens edu.sdccd.cisc191.sudoku.client.screen.start to javafx.fxml;
-    exports edu.sdccd.cisc191.sudoku.client.screen;
-    opens edu.sdccd.cisc191.sudoku.client.screen to javafx.fxml;
 }

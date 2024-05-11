@@ -93,6 +93,10 @@ public class BoardtoFile {
         System.out.println("Arrays and integers written to file.");
     }
 
+    public void writeBoardToFile(int[][] board, int[][] unsolvedBoard) throws IOException {
+        writeBoardToFile(board, unsolvedBoard, 0, 0);
+    }
+
     /**
      * Read the board from the file
      *
@@ -110,6 +114,11 @@ public class BoardtoFile {
         printArray(unsolvedBoard);
         System.out.println("Minutes: " + minutes);
         System.out.println("Seconds: " + seconds);
+    }
+
+    public int[][] getBoardFromFile() throws IOException {
+        int[][] board = readArray();
+        return board;
     }
 
 

@@ -46,8 +46,8 @@ public class SudokuBoard {
         //Prints the correct board
         System.out.print("Correct Board: \n");
         for (int[] ints : board) {
-            for (int j = 0; j < ints.length; j++) {
-                System.out.print(ints[j]);
+            for (int anInt : ints) {
+                System.out.print(anInt);
                 System.out.print(" ");
             }
 

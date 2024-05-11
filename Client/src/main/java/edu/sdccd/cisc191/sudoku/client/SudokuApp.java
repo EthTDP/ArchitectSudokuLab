@@ -22,9 +22,12 @@ public class SudokuApp extends Application {
 
     private static final String ROOT_DIRECTORY = "D:\\CISC191\\Labs\\ArchitectSudokuLab\\Client\\src\\main\\java\\resources";
 
+    public static Stage primaryStage;
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Sudoku");
+        SudokuApp.primaryStage = primaryStage;
+
 
         Start borderPane = new Start(primaryStage);
         borderPane.startScreen();

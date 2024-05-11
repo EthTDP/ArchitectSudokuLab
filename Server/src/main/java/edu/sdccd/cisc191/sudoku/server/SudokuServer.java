@@ -28,7 +28,7 @@ public class SudokuServer extends Application {
     static SudokuServer server;
     static BufferedReader in;
     static DataOutputStream out;
-    static Socket clientSocket;
+    public static Socket clientSocket;
 
     private static final int MAX_CLIENTS = 2;
     public static int connectedClients = 0;
@@ -54,7 +54,7 @@ public class SudokuServer extends Application {
         new Thread(this::startServer).start();
     }
 
-    private void startServer() {
+    public void startServer() {
         try {
             server = new SudokuServer();
             server.start(4444);
@@ -102,6 +102,10 @@ public class SudokuServer extends Application {
      */
     public void start(int port) throws Exception {
         serverSocket = new ServerSocket(port);
+    }
+
+    public ServerSocket currentServerSocket() {
+         return serverSocket;
     }
 
     /**
